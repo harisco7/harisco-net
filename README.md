@@ -4,7 +4,7 @@ My personal website, [harisco.net](https://www.harisco.net): a fully static site
 
 ## Getting started
 
-Requires Node.js 20.9 or newer (`.nvmrc` pins 24).
+Requires Node.js 24 (see `.nvmrc`).
 
 ```bash
 npm install
@@ -26,7 +26,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 `npm run build` writes plain HTML, CSS and JS to `out/`. There is no server: any static host can serve that folder.
 
-The site is hosted on [Render](https://render.com/) as a static site. `render.yaml` holds its settings: the build command, the folder to publish and pull request previews. Render takes the Node.js version from `.nvmrc`.
+The site is hosted on [Vercel](https://vercel.com/), which needs no configuration file: it detects Next.js, runs `npm run build` and serves the static export. Pushes to `main` go to production and every other branch or pull request gets a preview. Vercel takes the Node.js version from `engines` in `package.json`.
 
 ## Project structure
 

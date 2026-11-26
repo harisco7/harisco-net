@@ -16,8 +16,8 @@ export default function Footer({ t }: FooterProps) {
         </a>
         <br />
         {t.HostedBy}{' '}
-        <a href="https://render.com/" target="_blank" rel="noopener noreferrer">
-          Render
+        <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer">
+          Vercel
         </a>
         <br />
         <br />

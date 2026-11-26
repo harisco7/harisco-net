@@ -1,9 +1,0 @@
-# Render Blueprint: https://render.com/docs/blueprint-spec
-services:
-  - type: web
-    name: harisco-net
-    runtime: static
-    buildCommand: npm ci && npm run build
-    staticPublishPath: ./out
-    previews:
-      generation: automatic
