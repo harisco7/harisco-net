@@ -24,7 +24,9 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Deployment
 
-`npm run build` writes plain HTML, CSS and JS to `out/`. There is no server: upload that folder to any static host. Vercel builds it automatically.
+`npm run build` writes plain HTML, CSS and JS to `out/`. There is no server: any static host can serve that folder.
+
+The site is hosted on [Render](https://render.com/) as a static site. `render.yaml` holds its settings: the build command, the folder to publish and pull request previews. Render takes the Node.js version from `.nvmrc`.
 
 ## Project structure
 
