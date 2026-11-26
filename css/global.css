@@ -1,0 +1,80 @@
+html {
+  font-size: 14px;
+}
+
+@media screen and (min-width: 575px) {
+  html {
+    font-size: calc(14px + 6 * ((100vw - 575px) / 680));
+  }
+}
+
+@media screen and (min-width: 992px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+:root {
+  --mainBlue: #19021a;
+  --mainBlueSecondary: rgb(32, 3, 34);
+}
+
+body {
+  font-family: 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Helvetica Neue', Arial, sans-serif;
+  font-display: swap;
+  font-weight: 400;
+  color: #000;
+}
+
+h1,
+h2,
+h3 {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+
+.intro-text {
+  font-weight: 400;
+}
+
+a,
+a:active {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+a:hover,
+a:focus {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.scrollspy-item > a {
+  font-weight: 300;
+  font-size: 0.8rem;
+}
+
+.scrollspy-item > a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+.scrollspy-item > a:focus {
+  text-decoration: none;
+  color: #fff;
+}
+
+.scrollspy-item.is-current > a {
+  font-weight: 700;
+}
+
+.rounded {
+  border-radius: 50% !important;
+  border: 4px double white !important;
+}
+
+.mt-20 {
+  margin-top: 20px;
+  display: flex;
+}
