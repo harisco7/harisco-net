@@ -18,6 +18,8 @@ html {
 :root {
   --mainBlue: #19021a;
   --mainBlueSecondary: rgb(32, 3, 34);
+  /* The backdrop of "My Superpowers"; the section above it fades into the same colour. */
+  --paleSky: #d3edff;
 }
 
 body {

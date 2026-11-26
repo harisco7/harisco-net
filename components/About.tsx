@@ -1,6 +1,6 @@
 import type { Dictionary } from '@/i18n/dictionaries';
 import styles from './About.module.css';
-import Typewriter from './Typewriter';
+import Terminal, { type TerminalEntry } from './Terminal';
 
 type AboutProps = {
   id: string;
@@ -8,12 +8,17 @@ type AboutProps = {
 };
 
 export default function About({ id, t }: AboutProps) {
+  const session: TerminalEntry[] = [
+    { command: t.whoami, output: [t.AboutMeText1, t.AboutMeText2, t.AboutMeText3], layout: 'prose' },
+    { command: t.AboutInterestsCommand, output: t.AboutInterests, layout: 'list' },
+  ];
+
   return (
     <section className={styles.root} id={id}>
-      <div className={`${styles.container} col-12 col-lg-auto`}>
-        <div className={styles.diagonal}>
+      <div className={styles.shadow}>
+        <div className={styles.card}>
           <h2>{t.AboutMe}</h2>
-          <Typewriter className={styles.text} prompt={`> ${t.whoami}`} paragraphs={[t.AboutMeText1, t.AboutMeText2, t.AboutMeText3, t.AboutMeText4]} />
+          <Terminal className={styles.text} entries={session} />
         </div>
       </div>
     </section>

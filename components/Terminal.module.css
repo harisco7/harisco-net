@@ -1,0 +1,68 @@
+.root {
+  --mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+.root [data-untyped] {
+  opacity: 0;
+}
+
+/* A command line: set in the visitor's own terminal font. */
+.line {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.95em;
+  line-height: 1.6;
+}
+
+.prompt {
+  font-weight: 700;
+  color: #ff4063;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.58em;
+  height: 1.15em;
+  margin-left: 0.08em;
+  vertical-align: text-bottom;
+  background-color: currentColor;
+  animation: blink 1.05s steps(1) infinite;
+}
+
+.prose {
+  margin: 0.9em 0 0;
+}
+
+.prose + .line,
+.list + .line {
+  margin-top: 1.7em;
+}
+
+/* A directory listing, in columns and coloured the way `ls` colours folders. */
+.list {
+  margin: 0.8em 0 0;
+  padding: 0;
+  list-style: none;
+  columns: 12.5em auto;
+  column-gap: 2em;
+  font-family: var(--mono);
+  font-size: 0.86em;
+  line-height: 1.75;
+  color: #9fd8ff;
+}
+
+.list li {
+  break-inside: avoid;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
+}

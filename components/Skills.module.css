@@ -8,7 +8,7 @@
   --pop: #ffd23f;
   --sky: #23a0fc;
   /* What the page lies on, and the halftone dots printed over it. */
-  --desk: #d3edff;
+  --desk: var(--paleSky);
   --desk-dots: rgba(35, 160, 252, 0.4);
   --lettering: var(--font-comic), 'Impact', 'Arial Narrow', sans-serif;
 
@@ -27,7 +27,9 @@
   inset: 0;
   background-image: radial-gradient(circle, var(--desk-dots) 0 2.6px, transparent 3.1px);
   background-size: 17px 17px;
-  mask-image: linear-gradient(155deg, #000, transparent 36%, transparent 64%, #000);
+  /* Fading in from the top as well, where the section above runs into this one. */
+  mask-image: linear-gradient(155deg, #000, transparent 36%, transparent 64%, #000), linear-gradient(transparent, #000 160px);
+  mask-composite: intersect;
 }
 
 .container {
