@@ -4,7 +4,6 @@ import About from './About';
 import Contact from './Contact';
 import Footer from './Footer';
 import Header from './Header';
-import Projects from './Projects';
 import Reveal from './Reveal';
 import Skills from './Skills';
 
@@ -18,7 +17,6 @@ export default function HomePage({ locale }: { locale: Locale }) {
         <Reveal effect="slide-left">
           <About id="About" t={t} />
         </Reveal>
-        <Projects id="Projects" t={t} />
         <Skills id="Skills" t={t} />
         <Contact id="Contact" t={t} />
       </main>

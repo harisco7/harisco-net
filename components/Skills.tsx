@@ -1,52 +1,69 @@
-import Image from 'next/image';
+import { Bangers } from 'next/font/google';
 import type { Dictionary } from '@/i18n/dictionaries';
-import LanguageMeter from './LanguageMeter';
-import Reveal from './Reveal';
+import LanguageLevels from './LanguageLevels';
+import Scene from './Scene';
 import styles from './Skills.module.css';
+import { burst, ChecklistArt, ClockArt, KnifeArt, LensArt } from './SuperpowerArt';
+
+/** Comic-book lettering for the headline, the panel titles and the speech bubbles. */
+const comic = Bangers({
+  subsets: ['latin', 'latin-ext'],
+  weight: '400',
+  display: 'swap',
+  variable: '--font-comic',
+});
 
 type SkillsProps = {
   id: string;
   t: Dictionary;
 };
 
+/** "My Superpowers": a comic-book page with one panel per skill. */
 export default function Skills({ id, t }: SkillsProps) {
-  const skills = [
-    { title: t.TimeManagement, icon: '/time.svg', corner: styles.topLeft },
-    { title: t.AttentionToDetails, icon: '/details.svg', corner: styles.topRight },
-    { title: t.Resourcefulness, icon: '/resources.svg', corner: styles.bottomLeft },
-    { title: t.Responsibility, icon: '/notepad.svg', corner: styles.bottomRight },
+  const powers = [
+    { title: t.TimeManagement, caption: t.TimeManagementPower, Art: ClockArt, look: `${styles.wide} ${styles.clockPanel}` },
+    { title: t.AttentionToDetails, caption: t.AttentionToDetailsPower, Art: LensArt, look: `${styles.narrow} ${styles.lensPanel}` },
+    { title: t.Resourcefulness, caption: t.ResourcefulnessPower, Art: KnifeArt, look: `${styles.narrow} ${styles.knifePanel}` },
+    { title: t.Responsibility, caption: t.ResponsibilityPower, Art: ChecklistArt, look: `${styles.wide} ${styles.checklistPanel}` },
   ];
 
   const languages = [
-    { name: t.english, flag: '/en.png', percent: 97 },
-    { name: t.german, flag: '/de.png', percent: 90 },
-    { name: t.spanish, flag: '/es.png', percent: 25 },
+    { id: 'en', name: t.english, hello: 'Hello!', percent: 97 },
+    { id: 'de', name: t.german, hello: 'Hallo!', percent: 90 },
+    { id: 'es', name: t.spanish, hello: '¡Hola!', percent: 33 },
   ];
 
   return (
-    <section className={styles.root} id={id}>
+    <section className={`${styles.root} ${comic.variable}`} id={id}>
       <div className={`container ${styles.container}`}>
-        <h2>{t.PersonalSkills}</h2>
-        <Reveal effect="zoom" cascade className="row justify-content-center">
-          {skills.map((skill) => (
-            <div key={skill.icon} className="col-12 col-lg-6">
-              <div className={`${styles.card} ${skill.corner}`}>
-                <h3>{skill.title}</h3>
-                <Image src={skill.icon} alt="" width={115} height={115} />
+        <Scene className={styles.headline}>
+          <h2 className={styles.heading}>
+            <svg className={styles.burst} viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true">
+              <polygon points={burst(200, 80, 200, 80, 17, 0.8)} />
+            </svg>
+            <span>{t.Superpowers}</span>
+          </h2>
+        </Scene>
+
+        <div className={styles.page}>
+          {powers.map(({ title, caption, Art, look }) => (
+            <Scene key={title} className={`${styles.panel} ${look}`}>
+              <h3 className={styles.title}>{title}</h3>
+              <div className={styles.art}>
+                <Art />
               </div>
-            </div>
+              <p className={styles.caption}>{caption}</p>
+            </Scene>
           ))}
-          <div className="col-12">
-            <div className={styles.box}>
-              <h3>{t.Languages}</h3>
-              <div className="row">
-                {languages.map((language) => (
-                  <LanguageMeter key={language.flag} name={language.name} flag={language.flag} percent={language.percent} />
-                ))}
-              </div>
+
+          <Scene className={`${styles.panel} ${styles.languagesPanel}`}>
+            <h3 className={styles.title}>{t.Languages}</h3>
+            <div className={styles.art}>
+              <LanguageLevels languages={languages} />
             </div>
-          </div>
-        </Reveal>
+            <p className={styles.caption}>{t.LanguagesPower}</p>
+          </Scene>
+        </div>
       </div>
     </section>
   );

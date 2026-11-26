@@ -17,6 +17,8 @@ const noScriptStyles = `
   [data-reveal] > * { opacity: 1 !important; transform: none !important; }
   [data-untyped] { opacity: 1 !important; }
   [data-cursor] { display: none; }
+  [data-scene] { opacity: 1 !important; transform: none !important; }
+  [data-scene] * { animation-play-state: running !important; }
 `;
 
 /** The `<html>` and `<body>` shared by every root layout. */

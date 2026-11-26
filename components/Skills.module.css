@@ -1,129 +1,771 @@
+/*
+ * "My Superpowers" is a page out of a comic book: inked panels on a pastel desk,
+ * printed in four colours. The drawings themselves are in SuperpowerArt.tsx.
+ */
 .root {
-  min-height: 100vh;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--mainBlueSecondary);
-  padding: 60px 0 100px 0;
+  --ink: #200322;
+  --paper: #fffdf8;
+  --pop: #ffd23f;
+  --sky: #23a0fc;
+  /* What the page lies on, and the halftone dots printed over it. */
+  --desk: #d3edff;
+  --desk-dots: rgba(35, 160, 252, 0.4);
+  --lettering: var(--font-comic), 'Impact', 'Arial Narrow', sans-serif;
+
+  position: relative;
+  /* Panels are tilted and cast hard shadows; none of that may widen the page. */
+  overflow: hidden;
+  padding: 80px 0 130px;
+  color: var(--ink);
+  background-color: var(--desk);
+}
+
+/* Halftone dots creeping in from two corners. */
+.root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--desk-dots) 0 2.6px, transparent 3.1px);
+  background-size: 17px 17px;
+  mask-image: linear-gradient(155deg, #000, transparent 36%, transparent 64%, #000);
 }
 
 .container {
-  text-align: center;
+  position: relative;
 }
 
 @media screen and (min-width: 992px) {
   .container {
-    max-width: 980px;
+    max-width: 1060px;
   }
 }
 
-.root h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 60px;
+/* The headline bursts onto the page. */
+.headline {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 76px;
+  transition:
+    opacity 0.15s linear,
+    transform 0.6s cubic-bezier(0.2, 1.7, 0.4, 1);
 }
 
-.root h3 {
-  color: #fff;
-  text-align: center;
-  font-size: 1.5rem;
+.headline:not([data-seen]) {
+  opacity: 0;
+  transform: scale(0.2) rotate(-16deg);
+}
+
+.heading {
+  position: relative;
+  margin: 0;
+  padding: 1.05em 1.75em 0.95em;
+  rotate: -3deg;
+  font-family: var(--lettering);
+  font-size: clamp(2.6rem, 9vw, 4.4rem);
   font-weight: 400;
-  margin-bottom: 15px;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-align: center;
+  text-wrap: balance;
+  color: crimson;
+  text-shadow: 0.055em 0.055em 0 var(--ink);
 }
 
-.box {
-  color: #ddd;
-  padding: 40px 40px 50px;
-  position: relative;
-  background: crimson;
-  max-width: calc(100% - 160px);
-  margin-left: auto;
-  margin-right: auto;
-}
-
-@media screen and (max-width: 992px) {
-  .box {
-    max-width: none;
-  }
-}
-
-.box > h3 {
-  margin-bottom: 30px;
-}
-
-/* A card with one corner cut off (both top corners on narrow screens). */
-.card {
-  color: #ddd;
-  padding: 40px;
-  position: relative;
-  margin-bottom: 30px;
-  background: crimson;
-}
-
-.card img {
-  vertical-align: baseline;
-}
-
-.card::before,
-.card::after {
+.burst {
   position: absolute;
-  width: 0;
-  border: 0 solid transparent;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: var(--pop);
+  stroke: var(--ink);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  filter: drop-shadow(8px 8px 0 crimson);
 }
 
-@media screen and (max-width: 991px) {
-  .card {
-    margin-bottom: 50px;
+/* The burst is stretched to fit the headline; its outline must not be. */
+.burst polygon {
+  vector-effect: non-scaling-stroke;
+}
+
+.heading span {
+  position: relative;
+}
+
+/* The page: a wide and a narrow panel, then the other way round, then a strip. */
+.page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 54px;
+}
+
+/* A panel slams down onto the page, slightly crooked. */
+.panel {
+  --tilt: -0.9deg;
+  --from: 5deg;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 7px;
+  background-color: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 10px 10px 0 crimson;
+  rotate: var(--tilt);
+  transition:
+    opacity 0.15s linear,
+    transform 0.5s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+
+.panel:nth-child(even) {
+  --tilt: 1deg;
+  --from: -5deg;
+}
+
+.panel:nth-child(3) {
+  --tilt: 0.7deg;
+}
+
+.panel:nth-child(4) {
+  --tilt: -0.6deg;
+}
+
+.panel:nth-child(5) {
+  --tilt: 0.4deg;
+  --from: -3deg;
+}
+
+.panel:not([data-seen]) {
+  opacity: 0;
+  transform: scale(1.3) rotate(var(--from));
+}
+
+@media screen and (min-width: 768px) {
+  .page {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 52px 36px;
   }
 
-  .card::before {
-    content: '';
-    top: 0;
-    left: 0;
-    border-top: 80px solid var(--mainBlueSecondary);
-    border-right-width: 80px;
+  .panel {
+    grid-column: span 12;
   }
 
-  .card::after {
-    content: '';
-    top: 0;
-    right: 0;
-    border-top: 80px solid var(--mainBlueSecondary);
-    border-left-width: 80px;
+  .wide,
+  .narrow {
+    grid-column: span 6;
+  }
+
+  /* The second panel of a row lands a beat after the first. */
+  .panel:nth-child(even) {
+    transition-delay: 0.16s;
   }
 }
 
 @media screen and (min-width: 992px) {
-  .card::before {
-    content: '';
+  .wide {
+    grid-column: span 7;
   }
 
-  .topLeft::before {
-    top: 0;
-    left: 0;
-    border-top: 80px solid var(--mainBlueSecondary);
-    border-right-width: 80px;
+  .narrow {
+    grid-column: span 5;
+  }
+}
+
+/* The panel's name, on a caption box pinned across its corner. */
+.title {
+  position: absolute;
+  z-index: 2;
+  top: -22px;
+  left: -16px;
+  max-width: calc(100% - 12px);
+  margin: 0;
+  padding: 0.22em 0.75em 0.1em;
+  rotate: -3deg;
+  font-family: var(--lettering);
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0.045em;
+  text-align: left;
+  color: var(--ink);
+  background-color: var(--pop);
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.art {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 250px;
+  overflow: hidden;
+  border: 4px solid var(--ink);
+}
+
+.caption {
+  flex: 1;
+  margin: 0;
+  padding: 14px 12px 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: left;
+  text-wrap: balance;
+}
+
+.drawing {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  overflow: visible;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Nothing loops while its panel is off screen. */
+.root [data-scene]:not([data-playing]) * {
+  animation-play-state: paused;
+}
+
+/* --- Time management ------------------------------------------------------ */
+
+.clockPanel .art {
+  background-color: var(--pop);
+}
+
+/* A sunburst turning behind the clock, centred on the clock's face. */
+.clockPanel .art::before {
+  content: '';
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  width: 1100px;
+  height: 1100px;
+  margin: -550px 0 0 -532px;
+  background-image: repeating-conic-gradient(rgba(255, 255, 255, 0.6) 0 9deg, transparent 9deg 18deg);
+  animation: turn 60s linear infinite;
+}
+
+.hourHand,
+.minuteHand,
+.ring {
+  transform-origin: 165px 108px;
+}
+
+.minuteHand {
+  animation: turn 2.4s linear infinite;
+}
+
+.hourHand {
+  animation: turn 28.8s linear infinite;
+}
+
+.hurry {
+  animation: hurry 0.5s ease-in-out infinite alternate;
+}
+
+/* Every few seconds the alarm goes off. */
+.ring {
+  animation: ring 5s linear infinite;
+}
+
+.zing {
+  animation: zing 5s linear infinite;
+}
+
+.streak {
+  animation: streak 1.1s linear infinite;
+}
+
+.streak:nth-child(2) {
+  animation-delay: -0.4s;
+}
+
+.streak:nth-child(3) {
+  animation-delay: -0.75s;
+}
+
+@keyframes turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes hurry {
+  from {
+    transform: translate(-3px, 1px);
   }
 
-  .topRight::before {
-    top: 0;
-    right: 0;
-    border-top: 80px solid var(--mainBlueSecondary);
-    border-left-width: 80px;
+  to {
+    transform: translate(3px, -1px);
+  }
+}
+
+@keyframes ring {
+  0%,
+  68%,
+  100% {
+    transform: rotate(0deg);
   }
 
-  .bottomLeft::before {
-    bottom: 0;
-    left: 0;
-    border-bottom: 80px solid var(--mainBlueSecondary);
-    border-right-width: 80px;
+  71%,
+  77%,
+  83%,
+  89%,
+  95% {
+    transform: rotate(-5deg);
   }
 
-  .bottomRight::before {
-    bottom: 0;
-    right: 0;
-    border-bottom: 80px solid var(--mainBlueSecondary);
-    border-left-width: 80px;
+  74%,
+  80%,
+  86%,
+  92%,
+  98% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes zing {
+  0%,
+  68%,
+  100% {
+    opacity: 0;
+  }
+
+  71%,
+  96% {
+    opacity: 1;
+  }
+}
+
+@keyframes streak {
+  from {
+    opacity: 0;
+    transform: translateX(46px);
+  }
+
+  35%,
+  60% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-46px);
+  }
+}
+
+/* --- Attention to details ------------------------------------------------- */
+
+.lensPanel .art {
+  background-color: var(--sky);
+}
+
+/*
+ * The glass wanders over the dots and settles on the bug. Whatever it shows is
+ * moved by the same amount in the opposite direction, so it stays in place.
+ */
+.lens {
+  animation: hunt 9s ease-in-out infinite;
+}
+
+.lensView {
+  animation: hunt-view 9s ease-in-out infinite;
+}
+
+.eureka {
+  transform-origin: 156px 44px;
+  animation: eureka 9s ease-out infinite;
+}
+
+@keyframes hunt {
+  0%,
+  7%,
+  100% {
+    transform: translate(-52px, -26px);
+  }
+
+  17%,
+  25% {
+    transform: translate(26px, 52px);
+  }
+
+  35%,
+  43% {
+    transform: translate(-78px, 52px);
+  }
+
+  54%,
+  92% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes hunt-view {
+  0%,
+  7%,
+  100% {
+    transform: translate(52px, 26px);
+  }
+
+  17%,
+  25% {
+    transform: translate(-26px, -52px);
+  }
+
+  35%,
+  43% {
+    transform: translate(78px, -52px);
+  }
+
+  54%,
+  92% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes eureka {
+  0%,
+  55%,
+  92%,
+  100% {
+    transform: scale(0);
+  }
+
+  59% {
+    transform: scale(1.3) rotate(12deg);
+  }
+
+  62%,
+  88% {
+    transform: scale(1);
+  }
+}
+
+/* --- Resourcefulness ------------------------------------------------------ */
+
+.knifePanel .art {
+  background-color: var(--paper);
+  background-image: radial-gradient(circle at 50% 52%, var(--pop) 0 96px, transparent 97px), radial-gradient(circle, rgba(220, 20, 60, 0.5) 0 2.2px, transparent 2.7px);
+  background-size:
+    auto,
+    13px 13px;
+}
+
+/* Each tool flicks out of the handle to its own angle, one after another. */
+.tool {
+  transform: rotate(var(--open));
+  animation: flick 7s cubic-bezier(0.3, 0.1, 0.3, 1) infinite both;
+}
+
+.hingeLeft {
+  transform-origin: 72px 139px;
+}
+
+.hingeRight {
+  transform-origin: 128px 139px;
+}
+
+.blade {
+  --open: -122deg;
+}
+
+.screwdriver {
+  --open: 122deg;
+  animation-delay: 0.22s;
+}
+
+.corkscrew {
+  --open: 82deg;
+  animation-delay: 0.44s;
+}
+
+.bulb {
+  --open: -80deg;
+  animation-delay: 0.66s;
+}
+
+.rays {
+  animation: glow 7s linear infinite both;
+  animation-delay: 0.66s;
+}
+
+@keyframes flick {
+  0%,
+  5%,
+  84%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  13% {
+    transform: rotate(calc(var(--open) * 1.08));
+  }
+
+  17%,
+  74% {
+    transform: rotate(var(--open));
+  }
+}
+
+@keyframes glow {
+  0%,
+  17%,
+  74%,
+  100% {
+    opacity: 0;
+  }
+
+  20%,
+  30%,
+  36%,
+  70% {
+    opacity: 1;
+  }
+
+  33% {
+    opacity: 0.2;
+  }
+}
+
+/* --- Responsibility ------------------------------------------------------- */
+
+.checklistPanel .art {
+  background-color: crimson;
+  background-image: radial-gradient(circle, rgba(32, 3, 34, 0.3) 0 2.2px, transparent 2.7px);
+  background-size: 13px 13px;
+}
+
+/* One item after the other gets its tick, then the list earns its seal. */
+.checkbox {
+  fill: var(--pop);
+  animation: tick-box 7s linear infinite both;
+}
+
+.check {
+  stroke-dasharray: 1 2;
+  animation: tick 7s ease-out infinite both;
+}
+
+.item2 > * {
+  animation-delay: 0.55s;
+}
+
+.item3 > * {
+  animation-delay: 1.1s;
+}
+
+.seal {
+  transform-origin: 232px 106px;
+  animation: seal 7s ease-out infinite both;
+  animation-delay: 1.75s;
+}
+
+@keyframes tick {
+  0%,
+  6%,
+  76%,
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+
+  7% {
+    opacity: 1;
+    stroke-dashoffset: 1;
+  }
+
+  13%,
+  70% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+
+  75% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes tick-box {
+  0%,
+  9%,
+  76%,
+  100% {
+    fill: var(--paper);
+  }
+
+  13%,
+  70% {
+    fill: var(--pop);
+  }
+}
+
+@keyframes seal {
+  0%,
+  6%,
+  76%,
+  100% {
+    transform: scale(0) rotate(-50deg);
+  }
+
+  12% {
+    transform: scale(1.25) rotate(8deg);
+  }
+
+  16%,
+  70% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* --- Languages ------------------------------------------------------------ */
+
+.languagesPanel .art {
+  display: block;
+  height: auto;
+  background-color: #3b0a3f;
+  background-image: radial-gradient(circle, rgba(220, 20, 60, 0.6) 0 2.2px, transparent 2.7px);
+  background-size: 13px 13px;
+}
+
+.levels {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 14px;
+  margin: 0;
+  padding: 62px 14px 30px;
+  list-style: none;
+  text-align: center;
+}
+
+.levels li {
+  flex: 0 1 190px;
+  min-width: 0;
+}
+
+/* The bubbles bob about, each to its own beat. */
+.afloat {
+  rotate: -4deg;
+  animation: bob 3.6s ease-in-out infinite alternate;
+}
+
+.levels li:nth-child(2) .afloat {
+  rotate: 3deg;
+  animation-duration: 4.3s;
+  animation-delay: -1.5s;
+}
+
+.levels li:nth-child(3) .afloat {
+  rotate: -2deg;
+  animation-duration: 3.9s;
+  animation-delay: -2.6s;
+}
+
+.bubble {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.hello {
+  font-family: var(--lettering);
+  font-size: 35px;
+  letter-spacing: 0.04em;
+}
+
+.wave {
+  animation: wave 2.8s linear infinite;
+}
+
+.swell {
+  animation: wave 4.6s linear infinite reverse;
+}
+
+.percent {
+  margin: 6px 0 0;
+  font-family: var(--lettering);
+  font-size: 2.9rem;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  color: var(--pop);
+  text-shadow: 3px 3px 0 var(--ink);
+}
+
+.percent span {
+  margin-left: 0.08em;
+  font-size: 0.6em;
+}
+
+.language {
+  margin: 2px 0 0;
+  font-weight: 700;
+  color: var(--paper);
+}
+
+@keyframes bob {
+  from {
+    transform: translateY(-6px);
+  }
+
+  to {
+    transform: translateY(6px);
+  }
+}
+
+@keyframes wave {
+  to {
+    transform: translateX(-80px);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .root {
+    padding: 60px 0 90px;
+  }
+
+  .headline {
+    margin-bottom: 64px;
+  }
+
+  .panel {
+    box-shadow: 7px 7px 0 crimson;
+  }
+
+  .title {
+    left: -8px;
+  }
+
+  .art {
+    height: 230px;
+  }
+
+  .levels {
+    gap: 8px;
+    padding: 56px 8px 24px;
+  }
+
+  .percent {
+    font-size: 2.4rem;
+  }
+}
+
+/* Stand still: everything rests in the pose it was drawn in. */
+@media (prefers-reduced-motion: reduce) {
+  .headline,
+  .panel {
+    transition: none;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .root *,
+  .root *::before {
+    animation: none !important;
   }
 }
