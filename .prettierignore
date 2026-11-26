@@ -1,5 +1,6 @@
 node_modules
 .next
-yarn.lock
+out
 package-lock.json
 public
+styles/reboot.css
