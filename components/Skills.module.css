@@ -1,0 +1,129 @@
+.root {
+  min-height: 100vh;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--mainBlueSecondary);
+  padding: 60px 0 100px 0;
+}
+
+.container {
+  text-align: center;
+}
+
+@media screen and (min-width: 992px) {
+  .container {
+    max-width: 980px;
+  }
+}
+
+.root h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 60px;
+}
+
+.root h3 {
+  color: #fff;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+
+.box {
+  color: #ddd;
+  padding: 40px 40px 50px;
+  position: relative;
+  background: crimson;
+  max-width: calc(100% - 160px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (max-width: 992px) {
+  .box {
+    max-width: none;
+  }
+}
+
+.box > h3 {
+  margin-bottom: 30px;
+}
+
+/* A card with one corner cut off (both top corners on narrow screens). */
+.card {
+  color: #ddd;
+  padding: 40px;
+  position: relative;
+  margin-bottom: 30px;
+  background: crimson;
+}
+
+.card img {
+  vertical-align: baseline;
+}
+
+.card::before,
+.card::after {
+  position: absolute;
+  width: 0;
+  border: 0 solid transparent;
+}
+
+@media screen and (max-width: 991px) {
+  .card {
+    margin-bottom: 50px;
+  }
+
+  .card::before {
+    content: '';
+    top: 0;
+    left: 0;
+    border-top: 80px solid var(--mainBlueSecondary);
+    border-right-width: 80px;
+  }
+
+  .card::after {
+    content: '';
+    top: 0;
+    right: 0;
+    border-top: 80px solid var(--mainBlueSecondary);
+    border-left-width: 80px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .card::before {
+    content: '';
+  }
+
+  .topLeft::before {
+    top: 0;
+    left: 0;
+    border-top: 80px solid var(--mainBlueSecondary);
+    border-right-width: 80px;
+  }
+
+  .topRight::before {
+    top: 0;
+    right: 0;
+    border-top: 80px solid var(--mainBlueSecondary);
+    border-left-width: 80px;
+  }
+
+  .bottomLeft::before {
+    bottom: 0;
+    left: 0;
+    border-bottom: 80px solid var(--mainBlueSecondary);
+    border-right-width: 80px;
+  }
+
+  .bottomRight::before {
+    bottom: 0;
+    right: 0;
+    border-bottom: 80px solid var(--mainBlueSecondary);
+    border-left-width: 80px;
+  }
+}
