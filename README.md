@@ -32,7 +32,7 @@ The site is hosted on [Render](https://render.com/) as a static site. `render.ya
 
 - `app/` — routes. `(en)/` is English, served at `/`; `[locale]/` is every other language, served at `/de/`, `/es/` and `/bs/`
 - `components/` — the page sections (`Header`, `About`, `Skills`, …), each with its own `.module.css`
-- `content/` — the lists shown on the page: knowledge tags, projects, resources
+- `content/` — the lists shown on the page: projects
 - `i18n/` — the languages (`config.ts`) and their texts (`messages/<lang>.json`)
 - `lib/` — site-wide constants, metadata and shared hooks
 - `styles/` — global CSS

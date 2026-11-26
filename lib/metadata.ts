@@ -34,7 +34,7 @@ export function buildMetadata(locale: Locale, path = '/'): Metadata {
       title: `${site.author} - harisco.net`,
       description: t.description,
       locale: ogLocales[locale],
-      images: [{ url: '/profile.png', alt: t.headerImageAlt }],
+      images: [{ url: '/profile.jpg', width: 1200, height: 1200, alt: t.headerImageAlt }],
     },
     icons: {
       icon: [{ url: '/logo.png', type: 'image/png' }],
