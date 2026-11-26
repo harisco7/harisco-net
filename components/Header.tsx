@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import { type Locale, localeNames, localePath, locales } from '@/i18n/config';
-import type { Dictionary } from '@/i18n/dictionaries';
+import { type Locale, locales } from '@/i18n/config';
+import { type Dictionary, getDictionary } from '@/i18n/dictionaries';
 import { site } from '@/lib/site';
 import styles from './Header.module.css';
+import LanguagePicker from './LanguagePicker';
 import NetworkBackground from './NetworkBackground';
 
 const socialLinks = [
@@ -18,18 +18,16 @@ type HeaderProps = {
   t: Dictionary;
 };
 
+/** "This site is also available in …", said in each language itself. */
+const languageHints = Object.fromEntries(locales.map((language) => [language, getDictionary(language).LanguageHint])) as Record<Locale, string>;
+
 export default function Header({ id, locale, t }: HeaderProps) {
   return (
     <header className={styles.root} id={id}>
       <div className={styles.content}>
-        <nav className={styles.languages}>
-          {locales.map((language) => (
-            <Link key={language} href={localePath(language)} hrefLang={language} lang={language} className={language === locale ? styles.selected : undefined} aria-current={language === locale ? 'page' : undefined}>
-              <Image src={`/${language}.svg`} width={25} height={15} alt="" />
-              <span className={styles.languageLabel}>{localeNames[language]}</span>
-            </Link>
-          ))}
-        </nav>
+        <div className={styles.languages}>
+          <LanguagePicker locale={locale} label={t.Languages} variant="bubbles" hints={languageHints} />
+        </div>
         <div className={styles.center}>
           <h1>{site.author}</h1>
           <div className={styles.profile}>

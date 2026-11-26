@@ -1,0 +1,218 @@
+.list {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  text-decoration: none;
+}
+
+/* --- Speech bubbles: every language says hello ---------------------------- */
+
+.bubbles {
+  --highlight: #ffd23f;
+}
+
+.bubbles .list {
+  gap: 14px;
+}
+
+.bubbles li {
+  animation: arrive 0.5s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+  animation-delay: 0.5s;
+}
+
+.bubbles li:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.bubbles li:nth-child(3) {
+  animation-delay: 0.7s;
+}
+
+.bubbles li:nth-child(4) {
+  animation-delay: 0.8s;
+}
+
+.bubbles .link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: #b9b4ba;
+}
+
+.bubble {
+  position: relative;
+  display: block;
+  min-width: 4.7em;
+  padding: 0.28em 0.8em 0.22em;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  color: #fff;
+  background-color: #000;
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  border-radius: 1em;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+/* The bubble's tail: a small square on its corner, showing two of its sides. */
+.bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 1.05em;
+  width: 10px;
+  height: 10px;
+  background-color: inherit;
+  border: inherit;
+  border-width: 0 2px 2px 0;
+  border-radius: 0 0 3px;
+  transform: rotate(45deg) skew(12deg, 12deg);
+}
+
+.name {
+  font-size: 0.72rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.bubbles .link:hover,
+.bubbles .link:focus-visible {
+  color: #fff;
+  text-decoration: none;
+}
+
+.bubbles .link:hover .bubble,
+.bubbles .link:focus-visible .bubble {
+  color: var(--mainBlue);
+  background-color: var(--paleSky);
+  border-color: var(--paleSky);
+  transform: translateY(-3px) rotate(-3deg);
+}
+
+/* The language being read: a filled bubble. */
+.bubbles .link[aria-current] {
+  color: #fff;
+}
+
+.bubbles .link[aria-current] .bubble {
+  color: var(--mainBlue);
+  background-color: #fff;
+  border-color: #fff;
+}
+
+/* The language the visitor's browser asks for waves a few times, then lets it be. */
+.bubbles [data-suggested] .link {
+  color: var(--highlight);
+}
+
+.bubbles [data-suggested] .bubble {
+  color: var(--highlight);
+  border-color: var(--highlight);
+  animation: wave 3.2s ease-in-out 1.8s 3;
+}
+
+.hint {
+  margin: 14px 0 0;
+  font-size: 0.8rem;
+  text-align: center;
+  animation: appear 0.6s ease 1.6s both;
+}
+
+.hint a {
+  color: var(--highlight);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.hint a:hover,
+.hint a:focus-visible {
+  color: #fff;
+}
+
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(-14px) scale(0.6);
+  }
+}
+
+@keyframes wave {
+  0%,
+  30%,
+  100% {
+    transform: none;
+  }
+
+  6%,
+  18% {
+    transform: translateY(-4px) rotate(-7deg);
+  }
+
+  12%,
+  24% {
+    transform: translateY(-4px) rotate(7deg);
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+}
+
+/* --- Plain: the names in a row -------------------------------------------- */
+
+.plain .list {
+  flex-wrap: wrap;
+  gap: 4px 22px;
+}
+
+.plain .link {
+  color: inherit;
+}
+
+.plain .link:hover,
+.plain .link:focus-visible {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.plain .link[aria-current] {
+  font-weight: 700;
+  color: #fff;
+}
+
+@media screen and (max-width: 420px) {
+  .bubbles .list {
+    gap: 8px;
+  }
+
+  .bubble {
+    min-width: 4.3em;
+    padding-inline: 0.55em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bubbles li,
+  .bubbles [data-suggested] .bubble,
+  .hint {
+    animation: none;
+  }
+
+  .bubble {
+    transition: none;
+  }
+}

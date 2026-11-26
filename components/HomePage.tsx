@@ -20,7 +20,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
         <Skills id="Skills" t={t} />
         <Contact id="Contact" t={t} />
       </main>
-      <Footer t={t} />
+      <Footer locale={locale} t={t} />
     </>
   );
 }

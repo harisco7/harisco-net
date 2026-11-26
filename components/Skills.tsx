@@ -1,4 +1,5 @@
 import { Bangers } from 'next/font/google';
+import { localeGreetings } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries';
 import LanguageLevels from './LanguageLevels';
 import Scene from './Scene';
@@ -28,9 +29,9 @@ export default function Skills({ id, t }: SkillsProps) {
   ];
 
   const languages = [
-    { id: 'en', name: t.english, hello: 'Hello!', percent: 97 },
-    { id: 'de', name: t.german, hello: 'Hallo!', percent: 90 },
-    { id: 'es', name: t.spanish, hello: '¡Hola!', percent: 33 },
+    { id: 'en', name: t.english, hello: localeGreetings.en, percent: 97 },
+    { id: 'de', name: t.german, hello: localeGreetings.de, percent: 90 },
+    { id: 'es', name: t.spanish, hello: localeGreetings.es, percent: 33 },
   ];
 
   return (

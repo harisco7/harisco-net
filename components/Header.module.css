@@ -23,44 +23,21 @@
   color: #fff;
   flex-direction: column;
   z-index: 2;
+  /* Room for the language picker, and as much below so the middle stays the middle. */
+  padding: 130px 0;
 }
 
 .languages {
   position: absolute;
-  top: 0;
-  margin: 0 auto;
-  overflow: hidden;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  display: flex;
+  top: 26px;
+  left: 0;
+  right: 0;
+  z-index: 4;
 }
 
-.languages > a {
-  background: rgba(57, 130, 178, 0.5);
-  color: #eee;
-  font-size: 0.7rem;
-  line-height: 1.5;
-  padding: 7px 0 4px 0;
-  min-width: 75px;
-  text-decoration: none;
-  font-weight: 400;
-}
-
-.languages > a.selected,
-.languages > a:hover,
-.languages > a:focus-visible {
-  background: rgba(57, 130, 178, 0.9);
-  color: #fff;
-}
-
-/* Images sit on the text baseline, which leaves a little room below them. */
-.languages img,
 .photo {
+  /* Images sit on the text baseline, which leaves a little room below them. */
   vertical-align: baseline;
-}
-
-.languageLabel {
-  display: block;
 }
 
 .center {
