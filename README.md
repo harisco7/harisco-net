@@ -31,7 +31,7 @@ The site is hosted on [Vercel](https://vercel.com/), which needs no configuratio
 ## Project structure
 
 - `app/` — routes. `(en)/` is English, served at `/`; `[locale]/` is every other language, served at `/de/`, `/es/` and `/bs/`
-- `components/` — the page sections (`Header`, `About`, `Skills`, …), each with its own `.module.css`
+- `components/` — the page sections (`hero/`, `About`, `Skills`, …), each with its own `.module.css`
 - `i18n/` — the languages (`config.ts`) and their texts (`messages/<lang>.json`)
 - `lib/` — site-wide constants, metadata and shared hooks
 - `styles/` — global CSS

@@ -82,7 +82,7 @@ export function runStage(canvas: HTMLCanvasElement, stage: Stage) {
 
 export const random = (min: number, max: number) => Math.random() * (max - min) + min;
 
-/** A point of the classic network: it wanders, and wraps around the edges. */
+/** A point of the network behind the stickers: it wanders, and wraps around the edges. */
 export type Dot = {
   size: number;
   x: number;

@@ -1,6 +1,6 @@
 /*
- * The new hero, "Sticker sheet": the opening panel of the comic that "My
- * Superpowers" continues further down. Same ink, paper and crimson shadows.
+ * The hero is the opening panel of the comic that "My Superpowers" continues
+ * further down: same ink, paper and crimson shadows.
  */
 .root {
   --ink: #200322;
@@ -195,19 +195,6 @@
   translate: -50% 0;
 }
 
-/*
- * The picker was drawn for a dark hero. Here its small print needs ink and its
- * bubbles an ink outline; if this draft is the one, the picker gets a light look of its own.
- */
-.languages a > span:last-child,
-.languages p a {
-  color: var(--ink);
-}
-
-.languages a > span:first-child {
-  border-color: var(--ink) !important;
-}
-
 .center {
   position: relative;
   z-index: 3;
@@ -355,7 +342,7 @@
     --size: 58px;
 
     /* Taller than the screen if need be: nineteen stickers want room above and below. */
-    padding: 200px 16px 220px;
+    padding: 200px 16px 290px;
   }
 
   /* The bubble moves above the panel and speaks downwards. */
@@ -368,8 +355,10 @@
     display: contents;
   }
 
+  /* Smaller, and less far off centre, so that a longer greeting still fits. */
   .bubble {
-    margin: 0 0 -14px 44px;
+    margin: 0 0 -14px 6vw;
+    font-size: clamp(1.75rem, 8vw, 2.3rem);
   }
 
   .panel {

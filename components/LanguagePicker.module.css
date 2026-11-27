@@ -10,9 +10,11 @@
   text-decoration: none;
 }
 
-/* --- Speech bubbles: every language says hello ---------------------------- */
+/* --- Speech bubbles: every language says hello, in ink on the pale hero --- */
 
 .bubbles {
+  --ink: #200322;
+  --paper: #fffdf8;
   --highlight: #ffd23f;
 }
 
@@ -42,7 +44,7 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  color: #b9b4ba;
+  color: var(--ink);
 }
 
 .bubble {
@@ -54,9 +56,9 @@
   font-weight: 700;
   line-height: 1.4;
   text-align: center;
-  color: #fff;
-  background-color: #000;
-  border: 2px solid rgba(255, 255, 255, 0.65);
+  color: var(--paper);
+  background-color: var(--ink);
+  border: 2px solid var(--ink);
   border-radius: 1em;
   transition:
     transform 0.2s ease,
@@ -88,37 +90,31 @@
 
 .bubbles .link:hover,
 .bubbles .link:focus-visible {
-  color: #fff;
+  color: var(--ink);
   text-decoration: none;
 }
 
 .bubbles .link:hover .bubble,
 .bubbles .link:focus-visible .bubble {
-  color: var(--mainBlue);
-  background-color: var(--paleSky);
-  border-color: var(--paleSky);
+  color: var(--ink);
+  background-color: var(--highlight);
   transform: translateY(-3px) rotate(-3deg);
 }
 
-/* The language being read: a filled bubble. */
-.bubbles .link[aria-current] {
-  color: #fff;
-}
-
+/* The language being read: a paper bubble, like the one the portrait speaks in. */
 .bubbles .link[aria-current] .bubble {
-  color: var(--mainBlue);
-  background-color: #fff;
-  border-color: #fff;
+  color: var(--ink);
+  background-color: var(--paper);
 }
 
-/* The language the visitor's browser asks for waves a few times, then lets it be. */
-.bubbles [data-suggested] .link {
-  color: var(--highlight);
+/* The language the visitor's browser asks for is lit up and waves a few times, then lets it be. */
+.bubbles [data-suggested] .name {
+  font-weight: 700;
 }
 
 .bubbles [data-suggested] .bubble {
-  color: var(--highlight);
-  border-color: var(--highlight);
+  color: var(--ink);
+  background-color: var(--highlight);
   animation: wave 3.2s ease-in-out 1.8s 3;
 }
 
@@ -130,14 +126,15 @@
 }
 
 .hint a {
-  color: var(--highlight);
+  font-weight: 700;
+  color: var(--ink);
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }
 
 .hint a:hover,
 .hint a:focus-visible {
-  color: #fff;
+  color: crimson;
 }
 
 @keyframes arrive {

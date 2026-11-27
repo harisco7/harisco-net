@@ -2,12 +2,11 @@
 
 import { type CSSProperties, useEffect, useRef } from 'react';
 import { prefersReducedMotion } from '@/lib/useInView';
-import { captions } from './captions';
 import Glyph from './Glyph';
-import styles from './HeroStickers.module.css';
+import styles from './Hero.module.css';
 import { type Interest, interests } from './interests';
 import { createDot, type Dot, nearest, random, runStage, stepDot } from './loop';
-import { scatter } from './scatter';
+import { scatter, scatterNarrow } from './scatter';
 
 const DOT_COUNT = 24;
 const DOT_LINKS = 3;
@@ -24,7 +23,7 @@ const CLEARANCE = 6;
 /** How long a sticker has the word, and how long until the next one speaks up (in milliseconds). */
 const SPEAK_MS = 3800;
 const SPEAK_EVERY_MS = 2000;
-/** On a phone there is only room for one caption at a time. */
+/** Narrower than this is a phone: the stickers start out differently, and only one speaks at a time. */
 const NARROW = 700;
 /** Captions keep this far from the edges of the hero, and float this far off their sticker. */
 const CAPTION_MARGIN = 8;
@@ -108,9 +107,10 @@ function bounceOffBox(sticker: Sticker, box: Box) {
  * The things Haris loves as a sheet of stickers come loose: they float about,
  * bump into each other and into the comic panel, and can be picked up and
  * thrown. They take turns saying what they are, and any of them says so when
- * pointed at or touched. Behind them the original network, in ink, joins the dots.
+ * pointed at or touched. Behind them a network of wandering dots, in ink, joins
+ * them up. `captions` is what each has to say, by the ids in interests.ts.
  */
-export default function StickerPlayground() {
+export default function StickerPlayground({ captions }: { captions: Record<string, string> }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -267,9 +267,10 @@ export default function StickerPlayground() {
     const stage = runStage(canvas, {
       resize(newWidth, newHeight) {
         if (!width) {
+          const start = newWidth < NARROW ? scatterNarrow : scatter;
           stickers.forEach((sticker, index) => {
-            sticker.x = (scatter[index][0] / 100) * newWidth;
-            sticker.y = (scatter[index][1] / 100) * newHeight;
+            sticker.x = (start[index][0] / 100) * newWidth;
+            sticker.y = (start[index][1] / 100) * newHeight;
             // From here on the transform alone says where it is.
             sticker.element.style.left = '0';
             sticker.element.style.top = '0';
