@@ -22,7 +22,7 @@ const THINK_MS = 700;
 const ENTER_MS = 350;
 const KEY_MS = 42;
 /** Output is quicker than a person types, but slow enough to follow as it appears. */
-const PRINT_MS = 14;
+const PRINT_MS = 8;
 const LIST_ITEM_MS = 85;
 
 /** Like a person typing: every keystroke takes a slightly different time. */
