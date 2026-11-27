@@ -32,7 +32,8 @@ export function buildMetadata(locale: Locale, path = '/'): Metadata {
       url,
       siteName: site.name,
       title: `${site.author} - harisco.net`,
-      description: t.description,
+      // What a shared link says under its title: a livelier line than the one search engines get.
+      description: t.socialDescription,
       locale: ogLocales[locale],
       images: [{ url: '/profile.jpg', width: 1200, height: 1200, alt: t.headerImageAlt }],
     },
