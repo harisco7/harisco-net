@@ -3,6 +3,7 @@ export const site = {
   name: 'Harisco',
   author: 'Haris Smajlagić',
   email: 'info@harisco.net',
+  linkedin: 'https://www.linkedin.com/in/harisco/',
   themeColor: '#d3edff',
   googleSiteVerification: 'n8epfyM3SsMEn88WcLcsci8zCmk4xwYSVV0Ir5P72Bo',
 } as const;

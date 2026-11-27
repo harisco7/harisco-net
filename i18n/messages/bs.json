@@ -55,6 +55,7 @@
   "ContactSend": "Pošaljite razglednicu",
   "ContactSubject": "Upit: {{name}}",
   "ContactSent": "Žigosano! Vaša aplikacija za e-poštu bi se sada trebala otvoriti s porukom. Ništa se nije desilo? Pišite na {{email}}.",
+  "ContactLinkedIn": "preko LinkedIna",
   "ContactName": "Ime",
   "ContactYourMessage": "Vaša poruka",
   "BuiltWith": "Izrađeno pomoću",

@@ -26,6 +26,7 @@ export default function Contact({ id, t }: ContactProps) {
         <p className={styles.intro}>{t.ContactIntro}</p>
         <ContactForm
           email={site.email}
+          linkedin={site.linkedin}
           recipient={site.author}
           labels={{
             greeting: t.ContactGreeting,
@@ -35,6 +36,7 @@ export default function Contact({ id, t }: ContactProps) {
             send: t.ContactSend,
             subject: t.ContactSubject,
             sent: t.ContactSent,
+            linkedin: t.ContactLinkedIn,
           }}
         />
       </div>

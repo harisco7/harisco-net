@@ -7,6 +7,8 @@ import styles from './Contact.module.css';
 
 type ContactFormProps = {
   email: string;
+  /** The other way to get in touch: the address of a LinkedIn profile. */
+  linkedin: string;
   /** Printed on the address side of the card. */
   recipient: string;
   labels: {
@@ -20,6 +22,8 @@ type ContactFormProps = {
     subject: string;
     /** Shown once the card is postmarked; `{{email}}` is replaced with a link. */
     sent: string;
+    /** "via LinkedIn", printed on the card's routing label. */
+    linkedin: string;
   };
 };
 
@@ -31,7 +35,7 @@ const POSTMARK_MS = 550;
  * sent from here: posting the card postmarks it and opens the visitor's own
  * mail app with a draft that already holds what they wrote.
  */
-export default function ContactForm({ email, recipient, labels }: ContactFormProps) {
+export default function ContactForm({ email, linkedin, recipient, labels }: ContactFormProps) {
   // `count` restarts the postmark animation when the card is posted again.
   const [postmark, setPostmark] = useState<{ count: number; day: string; year: string } | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -96,10 +100,17 @@ export default function ContactForm({ email, recipient, labels }: ContactFormPro
             </div>
             {postmark && <Postmark key={postmark.count} place={domain} day={postmark.day} year={postmark.year} />}
           </div>
-          <p className={styles.addressLines}>
-            <span>{recipient}</span>
-            <a href={`mailto:${email}`}>{email}</a>
-          </p>
+          <div className={styles.to}>
+            {/* Where an airmail card says "par avion", this one names the other route to its recipient. */}
+            <a className={styles.via} href={linkedin} target="_blank" rel="noopener noreferrer">
+              <span>{labels.linkedin}</span>
+              <span>{linkedin.replace(/^https?:\/\/(www\.)?|\/$/g, '')}</span>
+            </a>
+            <p className={styles.addressLines}>
+              <span>{recipient}</span>
+              <a href={`mailto:${email}`}>{email}</a>
+            </p>
+          </div>
         </div>
       </div>
 

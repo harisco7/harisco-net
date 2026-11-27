@@ -236,7 +236,66 @@ p.ruled {
   }
 }
 
+/* Who the card goes to, and by which route. */
+.to {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.3rem;
+}
+
+/*
+ * The routing label, stuck on a little crooked the way a "par avion" sticker
+ * is: it says the card could also travel via LinkedIn, and leads there.
+ */
+.via {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  padding: 0.55em 0.95em 0.5em;
+  line-height: 1.25;
+  color: #fff;
+  background-color: #0a66c2;
+  border-radius: 2px;
+  /* A thin white frame printed just inside its edge, and the shadow of something stuck on. */
+  box-shadow:
+    inset 0 0 0 3px #0a66c2,
+    inset 0 0 0 4px rgba(255, 255, 255, 0.6),
+    0 1px 1.5px rgba(32, 3, 34, 0.4);
+  rotate: -3deg;
+  transition:
+    rotate 0.25s ease,
+    translate 0.25s ease;
+}
+
+.via span:first-child {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.via span:last-child {
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  overflow-wrap: anywhere;
+}
+
+.via:hover,
+.via:focus-visible {
+  color: #fff;
+  text-decoration: none;
+  rotate: 0deg;
+  translate: 0 -2px;
+}
+
+.via:focus-visible {
+  outline: 2px solid var(--print);
+  outline-offset: 3px;
+}
+
 .addressLines {
+  align-self: stretch;
   margin: 0;
   color: var(--print);
 }
@@ -306,9 +365,10 @@ p.ruled {
     flex: none;
   }
 
-  .addressLines {
+  .to {
     flex: 1;
     min-width: 0;
+    gap: 1rem;
   }
 
   .letter {
@@ -318,7 +378,8 @@ p.ruled {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card {
+  .card,
+  .via {
     transition: none;
   }
 

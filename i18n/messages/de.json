@@ -55,6 +55,7 @@
   "ContactSend": "Postkarte abschicken",
   "ContactSubject": "Anfrage von {{name}}",
   "ContactSent": "Abgestempelt! Dein E-Mail-Programm sollte sich jetzt mit dem Entwurf geöffnet haben. Nichts passiert? Schreib an {{email}}.",
+  "ContactLinkedIn": "via LinkedIn",
   "ContactName": "Name",
   "ContactYourMessage": "Deine Nachricht",
   "BuiltWith": "Gebaut mit",

@@ -55,6 +55,7 @@
   "ContactSend": "Enviar postal",
   "ContactSubject": "Consulta de {{name}}",
   "ContactSent": "¡Matasellada! Tu aplicación de correo debería haberse abierto con el borrador. ¿No ha pasado nada? Escribe a {{email}}.",
+  "ContactLinkedIn": "vía LinkedIn",
   "ContactName": "Nombre",
   "ContactYourMessage": "Tu mensaje",
   "BuiltWith": "Hecho con",

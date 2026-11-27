@@ -55,6 +55,7 @@
   "ContactSend": "Send postcard",
   "ContactSubject": "Enquiry from {{name}}",
   "ContactSent": "Postmarked! Your mail app should now be open with the draft. Nothing happened? Write to {{email}}.",
+  "ContactLinkedIn": "via LinkedIn",
   "ContactName": "Name",
   "ContactYourMessage": "Your message",
   "BuiltWith": "Built with",
