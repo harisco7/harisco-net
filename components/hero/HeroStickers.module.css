@@ -1,0 +1,422 @@
+/*
+ * The new hero, "Sticker sheet": the opening panel of the comic that "My
+ * Superpowers" continues further down. Same ink, paper and crimson shadows.
+ */
+.root {
+  --ink: #200322;
+  --paper: #fffdf8;
+  --pop: #ffd23f;
+  --size: 90px;
+  --lettering: var(--font-comic), 'Impact', 'Arial Narrow', sans-serif;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 150px 20px 110px;
+  overflow: hidden;
+  color: var(--ink);
+  background-color: var(--paleSky);
+  /* Runs out into the white of the section below. */
+  background-image: linear-gradient(transparent 82%, #fff);
+}
+
+/* Halftone dots creeping in from two corners, as on the superpowers page. */
+.root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(35, 160, 252, 0.4) 0 2.6px, transparent 3.1px);
+  background-size: 17px 17px;
+  mask-image: linear-gradient(155deg, #000, transparent 38%, transparent 62%, #000), linear-gradient(#000 70%, transparent);
+  mask-composite: intersect;
+}
+
+.playground,
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.stickers {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stickers li {
+  /* Wide marks get a larger sticker. */
+  --d: var(--size);
+
+  position: absolute;
+  width: var(--d);
+  height: var(--d);
+  /* Its position is that of its centre. */
+  margin: calc(var(--d) / -2) 0 0 calc(var(--d) / -2);
+  cursor: grab;
+  /* Swiping up or down over a sticker still scrolls the page. */
+  touch-action: pan-y;
+  user-select: none;
+  will-change: transform;
+}
+
+.stickers li[data-wide] {
+  --d: calc(var(--size) * 1.24);
+}
+
+.stickers li[data-held] {
+  cursor: grabbing;
+}
+
+/* Whoever is speaking, or in the visitor's hand, comes to the front, caption and all. */
+.stickers li[data-speaking],
+.stickers li[data-held] {
+  z-index: 5;
+}
+
+.sticker {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--ink);
+  background-color: var(--sticker);
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  box-shadow: 5px 5px 0 var(--ink);
+  transition:
+    scale 0.15s ease,
+    box-shadow 0.15s ease;
+  /* Slapped onto the page one after another. */
+  animation: slap 0.45s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+  animation-delay: calc(0.3s + var(--i) * 0.06s);
+}
+
+.sticker[data-dark] {
+  color: var(--paper);
+}
+
+/* As large as the sticker allows; wide marks run almost from edge to edge. */
+.sticker svg {
+  width: min(calc(var(--d) * 0.58 * var(--k)), calc(var(--d) * 0.8));
+  height: auto;
+}
+
+.stickers li[data-speaking] .sticker {
+  scale: 1.08;
+}
+
+/* Lifted off the page. */
+.stickers li[data-held] .sticker {
+  scale: 1.14;
+  box-shadow: 11px 11px 0 rgba(32, 3, 34, 0.3);
+}
+
+/*
+ * What a sticker has to say: a small speech bubble over it. StickerPlayground
+ * sets `--shift` to keep it inside the hero, and `data-below` when there is no
+ * room above; the tail keeps pointing at the sticker either way.
+ */
+.caption {
+  position: absolute;
+  bottom: calc(100% + 13px);
+  left: 50%;
+  width: max-content;
+  max-width: min(230px, 64vw);
+  padding: 0.4em 0.8em 0.34em;
+  font-size: max(13px, 0.86rem);
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--ink);
+  background-color: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 1em;
+  box-shadow: 3px 3px 0 var(--ink);
+  translate: calc(-50% + var(--shift, 0px)) 0;
+  transform-origin: calc(50% - var(--shift, 0px)) calc(100% + 13px);
+  pointer-events: none;
+  opacity: 0;
+  scale: 0.5;
+  transition:
+    opacity 0.3s ease,
+    scale 0.3s ease;
+}
+
+.caption::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: calc(50% - var(--shift, 0px));
+  width: 11px;
+  height: 11px;
+  margin: -6px 0 0 -6px;
+  background-color: inherit;
+  border: inherit;
+  border-width: 0 2px 2px 0;
+  border-radius: 0 0 3px;
+  rotate: 45deg;
+}
+
+.stickers li[data-below] .caption {
+  top: calc(100% + 15px);
+  bottom: auto;
+  transform-origin: calc(50% - var(--shift, 0px)) -15px;
+}
+
+.stickers li[data-below] .caption::after {
+  top: auto;
+  bottom: 100%;
+  margin: 0 0 -6px -6px;
+  border-width: 2px 0 0 2px;
+  border-radius: 3px 0 0;
+}
+
+.stickers li[data-speaking] .caption {
+  opacity: 1;
+  scale: 1;
+  transition:
+    opacity 0.2s ease,
+    scale 0.35s cubic-bezier(0.2, 1.7, 0.4, 1);
+}
+
+.languages {
+  position: absolute;
+  top: 26px;
+  left: 50%;
+  z-index: 4;
+  width: max-content;
+  max-width: 100%;
+  translate: -50% 0;
+}
+
+/*
+ * The picker was drawn for a dark hero. Here its small print needs ink and its
+ * bubbles an ink outline; if this draft is the one, the picker gets a light look of its own.
+ */
+.languages a > span:last-child,
+.languages p a {
+  color: var(--ink);
+}
+
+.languages a > span:first-child {
+  border-color: var(--ink) !important;
+}
+
+.center {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* The portrait is the first panel of the comic. */
+.panel {
+  flex: none;
+  padding: 7px;
+  background-color: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 10px 10px 0 crimson;
+  rotate: -2.5deg;
+  animation: land 0.5s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+}
+
+.photo {
+  display: block;
+  width: clamp(190px, 24vw, 270px);
+  height: auto;
+  border: 4px solid var(--ink);
+}
+
+.says {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* Overlaps the panel's corner, level with the forehead. */
+  margin: 22px 0 0 -30px;
+}
+
+/* What the portrait says. */
+.bubble {
+  position: relative;
+  margin: 0;
+  /* More room below, where the tail is. */
+  padding: 0.52em 1.1em 0.78em;
+  font-family: var(--lettering);
+  font-size: clamp(2.3rem, 5.2vw, 3.9rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.035em;
+  white-space: nowrap;
+  color: crimson;
+  text-shadow: 0.05em 0.05em 0 var(--ink);
+  rotate: 3deg;
+  animation: pop 0.5s cubic-bezier(0.2, 1.7, 0.4, 1) 0.45s both;
+}
+
+.bubble svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  filter: drop-shadow(7px 7px 0 var(--ink));
+}
+
+/* The bubble is stretched to fit the words; its outline must not be. */
+.bubble path {
+  vector-effect: non-scaling-stroke;
+}
+
+.bubble span {
+  position: relative;
+}
+
+/* Who is speaking: caption boxes pinned down one under the other, as on the superpowers' panels. */
+.titles {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 30px 0 0 58px;
+  padding: 0;
+  list-style: none;
+}
+
+.titles li {
+  padding: 0.22em 0.75em 0.1em;
+  font-family: var(--lettering);
+  font-size: clamp(1.5rem, 2.5vw, 1.95rem);
+  line-height: 1.15;
+  letter-spacing: 0.045em;
+  white-space: nowrap;
+  background-color: var(--pop);
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  rotate: -2deg;
+  animation: pop 0.4s cubic-bezier(0.2, 1.7, 0.4, 1) 0.75s both;
+}
+
+/* None of them is pinned quite straight, or quite in line. */
+.titles li:nth-child(2) {
+  margin-left: 34px;
+  rotate: 1.5deg;
+  animation-delay: 0.87s;
+}
+
+.titles li:nth-child(3) {
+  margin-left: 10px;
+  rotate: -1deg;
+  animation-delay: 0.99s;
+}
+
+@keyframes slap {
+  from {
+    opacity: 0;
+    scale: 1.9;
+  }
+}
+
+@keyframes land {
+  from {
+    opacity: 0;
+    transform: scale(1.3) rotate(6deg);
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.2) rotate(-14deg);
+  }
+}
+
+/* Between a phone and a desktop there is less room for nineteen of them. */
+@media screen and (max-width: 1100px) {
+  .root {
+    --size: 76px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .root {
+    --size: 58px;
+
+    /* Taller than the screen if need be: nineteen stickers want room above and below. */
+    padding: 200px 16px 220px;
+  }
+
+  /* The bubble moves above the panel and speaks downwards. */
+  .center {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .says {
+    display: contents;
+  }
+
+  .bubble {
+    margin: 0 0 -14px 44px;
+  }
+
+  .panel {
+    box-shadow: 7px 7px 0 crimson;
+  }
+
+  .titles {
+    order: -1;
+    align-items: center;
+    gap: 12px;
+    margin: 34px 0 0;
+  }
+
+  .titles li {
+    border-width: 2px;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+
+  .sticker {
+    border-width: 2px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+}
+
+/* The smallest phones: smaller stickers, so nineteen of them still have room to move. */
+@media screen and (max-width: 380px) {
+  .root {
+    --size: 52px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticker,
+  .panel,
+  .bubble,
+  .titles li {
+    animation: none;
+  }
+
+  .sticker {
+    transition: none;
+  }
+
+  /* Captions still come and go, but without the pop. */
+  .caption,
+  .stickers li[data-speaking] .caption {
+    scale: 1;
+    transition: opacity 0.3s ease;
+  }
+}
