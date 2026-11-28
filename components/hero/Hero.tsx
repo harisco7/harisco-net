@@ -1,8 +1,11 @@
 import { Bangers } from 'next/font/google';
-import Image from 'next/image';
 import { type Locale, locales } from '@/i18n/config';
 import { type Dictionary, getDictionary } from '@/i18n/dictionaries';
+import photo270 from '@/images/hero-270.webp';
+import photo380 from '@/images/hero-380.webp';
+import photo570 from '@/images/hero-570.webp';
 import LanguagePicker from '../LanguagePicker';
+import Photo from '../Photo';
 import styles from './Hero.module.css';
 import StickerPlayground from './StickerPlayground';
 
@@ -37,7 +40,8 @@ export default function Hero({ id, locale, t }: HeroProps) {
       </div>
       <div className={styles.center}>
         <div className={styles.panel} data-obstacle="">
-          <Image className={styles.photo} src="/profile.webp" width={270} height={270} alt={t.headerImageAlt} loading="eager" fetchPriority="high" />
+          {/* `sizes` spells out the width of `.photo`, clamp(190px, 24vw, 270px), less its 4px border on either side. */}
+          <Photo className={styles.photo} cuts={[photo270, photo380, photo570]} sizes="(min-width: 1125px) 262px, (min-width: 792px) calc(24vw - 8px), 182px" alt={t.headerImageAlt} priority />
         </div>
         <div className={styles.says}>
           <h1 className={styles.bubble} data-obstacle="">

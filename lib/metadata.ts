@@ -35,7 +35,8 @@ export function buildMetadata(locale: Locale, path = '/'): Metadata {
       // What a shared link says under its title: a livelier line than the one search engines get.
       description: t.socialDescription,
       locale: ogLocales[locale],
-      images: [{ url: '/profile.jpg', width: 1200, height: 1200, alt: t.headerImageAlt }],
+      // Drawn by `npm run images`, in the wide shape that link previews are laid out for.
+      images: [{ url: '/og.jpg', width: 1200, height: 630, alt: t.headerImageAlt }],
     },
     icons: {
       icon: [{ url: '/logo.png', type: 'image/png' }],

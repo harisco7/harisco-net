@@ -1,8 +1,12 @@
 import { Kalam } from 'next/font/google';
 import type { Dictionary } from '@/i18n/dictionaries';
+import stamp94 from '@/images/stamp-94.webp';
+import stamp188 from '@/images/stamp-188.webp';
+import stamp282 from '@/images/stamp-282.webp';
 import { site } from '@/lib/site';
 import styles from './Contact.module.css';
 import ContactForm from './ContactForm';
+import Photo from './Photo';
 
 /** The pen everything on the postcard is written with. */
 const handwriting = Kalam({
@@ -28,6 +32,7 @@ export default function Contact({ id, t }: ContactProps) {
           email={site.email}
           linkedin={site.linkedin}
           recipient={site.author}
+          portrait={<Photo cuts={[stamp94, stamp188, stamp282]} sizes="94px" alt="" />}
           labels={{
             greeting: t.ContactGreeting,
             name: t.ContactName,

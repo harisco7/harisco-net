@@ -1,7 +1,6 @@
 'use client';
 
-import Image from 'next/image';
-import { type FormEvent, useEffect, useRef, useState } from 'react';
+import { type FormEvent, type ReactNode, useEffect, useRef, useState } from 'react';
 import { prefersReducedMotion } from '@/lib/useInView';
 import styles from './Contact.module.css';
 
@@ -11,6 +10,8 @@ type ContactFormProps = {
   linkedin: string;
   /** Printed on the address side of the card. */
   recipient: string;
+  /** The picture printed on the stamp. */
+  portrait: ReactNode;
   labels: {
     /** Already written on the card, and the first line of the drafted e-mail. */
     greeting: string;
@@ -35,7 +36,7 @@ const POSTMARK_MS = 550;
  * sent from here: posting the card postmarks it and opens the visitor's own
  * mail app with a draft that already holds what they wrote.
  */
-export default function ContactForm({ email, linkedin, recipient, labels }: ContactFormProps) {
+export default function ContactForm({ email, linkedin, recipient, portrait, labels }: ContactFormProps) {
   // `count` restarts the postmark animation when the card is posted again.
   const [postmark, setPostmark] = useState<{ count: number; day: string; year: string } | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -92,9 +93,7 @@ export default function ContactForm({ email, linkedin, recipient, labels }: Cont
           <div className={styles.postage}>
             <div className={styles.stampShadow}>
               <div className={styles.stamp}>
-                <span className={styles.portrait}>
-                  <Image src="/profile.webp" width={94} height={94} alt="" />
-                </span>
+                <span className={styles.portrait}>{portrait}</span>
                 <span className={styles.stampName}>{domain}</span>
               </div>
             </div>

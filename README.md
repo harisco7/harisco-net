@@ -21,6 +21,7 @@ Open [http://localhost:3000](http://localhost:3000).
 - `npm run lint` — run ESLint
 - `npm run typecheck` — run the TypeScript compiler without emitting
 - `npm run format` — format everything with Prettier
+- `npm run images` — cut the photos in `images/originals/` to the sizes the site shows them at
 
 ## Deployment
 
@@ -35,7 +36,9 @@ The site is hosted on [Vercel](https://vercel.com/), which needs no configuratio
 - `i18n/` — the languages (`config.ts`) and their texts (`messages/<lang>.json`)
 - `lib/` — site-wide constants, metadata and shared hooks
 - `styles/` — global CSS
-- `public/` — images and icons, copied to the site as-is
+- `images/` — the photos, at every size the site serves; `originals/` holds what they are cut from and is not published
+- `scripts/` — `images.mjs`, which does the cutting
+- `public/` — icons and the link-preview picture, copied to the site as-is
 
 ## Translations
 
