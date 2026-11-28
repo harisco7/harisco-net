@@ -20,15 +20,16 @@ export const scatter: readonly (readonly [number, number])[] = [
   [75, 88],
   [31, 13],
   [69, 14],
-  [38, 92],
-  [50, 88],
-  [62, 93],
+  [35, 92],
+  [45, 87],
+  [55, 93],
+  [65, 88],
 ];
 
 /**
  * The same for a phone, where the hero is tall and narrow: a row under the
- * language picker, two on either side of the portrait, and the rest (the wide
- * marks among them) below the titles, where there is the most room.
+ * language picker, two on either side of the portrait, one beside the titles,
+ * and the rest (the wide marks among them) below, where there is the most room.
  */
 export const scatterNarrow: readonly (readonly [number, number])[] = [
   [20, 86],
@@ -50,4 +51,5 @@ export const scatterNarrow: readonly (readonly [number, number])[] = [
   [37, 95],
   [63, 95],
   [88, 95],
+  [91, 60],
 ];

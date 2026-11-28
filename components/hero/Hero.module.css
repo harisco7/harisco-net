@@ -330,7 +330,7 @@
   }
 }
 
-/* Between a phone and a desktop there is less room for nineteen of them. */
+/* Between a phone and a desktop there is less room for twenty of them. */
 @media screen and (max-width: 1100px) {
   .root {
     --size: 76px;
@@ -341,7 +341,7 @@
   .root {
     --size: 58px;
 
-    /* Taller than the screen if need be: nineteen stickers want room above and below. */
+    /* Taller than the screen if need be: twenty stickers want room above and below. */
     padding: 200px 16px 290px;
   }
 
@@ -383,7 +383,7 @@
   }
 }
 
-/* The smallest phones: smaller stickers, so nineteen of them still have room to move. */
+/* The smallest phones: smaller stickers, so twenty of them still have room to move. */
 @media screen and (max-width: 380px) {
   .root {
     --size: 52px;

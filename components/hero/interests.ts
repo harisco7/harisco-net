@@ -3,10 +3,11 @@
  * passion. Each is a single path, so it can be an inline `<svg>` as easily as
  * a `Path2D` on a canvas.
  *
- * The pictograms are Material Design Icons (Apache 2.0). The F1, CachyOS and
- * Android marks are from Simple Icons (CC0); MotoGP, FC Bayern and Marvel are
- * one-colour tracings of the marks on Wikimedia Commons. All of those are
- * trademarks of their owners, shown here as a fan.
+ * The pictograms are Material Design Icons, and the sauna is from Google's
+ * Material Symbols (both Apache 2.0). The F1, CachyOS and Android marks are
+ * from Simple Icons (CC0); MotoGP, FC Bayern and Marvel are one-colour tracings
+ * of the marks on Wikimedia Commons. All of those are trademarks of their
+ * owners, shown here as a fan.
  */
 export type Interest = {
   id: string;
@@ -156,5 +157,12 @@ export const interests: Interest[] = [
     color: '#5fbf5a',
     viewBox: [0, 0, 24, 24],
     d: 'M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z',
+  },
+  {
+    id: 'sauna',
+    name: 'Sauna',
+    color: '#ff7b54',
+    viewBox: [0, -960, 960, 960],
+    d: 'M160-80q-33 0-56.5-23.5T80-160v-640q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v640q0 33-23.5 56.5T800-80H160Zm0-240v160h80v-80h-40v-80h-40Zm0-80h40q0-17 11.5-28.5T240-440v-100q0-25 17.5-42.5T300-600h80q25 0 42.5 17.5T440-540v100q17 0 28.5 11.5T480-400h320v-400H160v400Zm180-240q-25 0-42.5-17.5T280-700q0-25 17.5-42.5T340-760q25 0 42.5 17.5T400-700q0 25-17.5 42.5T340-640Zm-20 480h40v-80h-40v80Zm120 0h360v-160H480v80h-40v80Zm50-400q2-13 2.5-19.5t.5-13.5q0-11-4.5-21T470-641q-15-19-22.5-38t-7.5-39q0-8 1-16.5l3-25.5h60q-2 11-3 20.5t-1 21.5q0 11 4.5 21.5T520-674q18 22 26 41.5t8 39.5q0 11-1 18t-3 15h-60Zm100 0q2-13 2.5-19.5t.5-13.5q0-11-4.5-21T570-641q-15-19-22.5-38t-7.5-39q0-8 1-16.5l3-25.5h60q-2 11-3 20.5t-1 21.5q0 11 4.5 21.5T620-674q18 22 26 41.5t8 39.5q0 11-1 18t-3 15h-60Zm102 0q2-13 2.5-19.5t.5-13.5q0-11-4.5-21T672-641q-15-19-22.5-38t-7.5-39q0-8 1-16.5l3-25.5h60q-2 11-3 20.5t-1 21.5q0 11 4.5 21.5T722-674q18 22 26 41.5t8 39.5q0 11-1 18t-3 15h-60Z',
   },
 ];
